@@ -6,12 +6,15 @@ import javax.swing.JFrame;
 
 public class GameGUI {
 
+	Controller controller;
 	JFrame frame;
+	
 
 	/**
 	 * Create the application.
 	 */
-	public GameGUI() {
+	public GameGUI(Controller _controller) {
+		controller = _controller;
 		initialize();
 	}
 
