@@ -2,23 +2,41 @@ package edu.csf.client;
 
 import java.awt.EventQueue;
 import java.io.IOException;
+<<<<<<< HEAD
 import edu.csf.common.IServer;
 import edu.csf.common.IWatcher;
 import net.sf.lipermi.handler.CallHandler;
 import net.sf.lipermi.net.Client;
 
 
+=======
+
+import edu.csf.common.IServer;
+import edu.csf.common.IWatcher;
+import net.sf.lipermi.handler.CallHandler;
+import net.sf.lipermi.net.Client;
+
+
+>>>>>>> master
 public class Controller implements IWatcher{
 
 	IServer myRemoteObject;
 	String name;
+<<<<<<< HEAD
+=======
+	
+>>>>>>> master
 	private void initializeGUI()
 	{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					GameGUI window = new GameGUI(Controller.this);
+<<<<<<< HEAD
 					window.frmCthulhuDice.setVisible(true);
+=======
+					window.frame.setVisible(true);
+>>>>>>> master
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
