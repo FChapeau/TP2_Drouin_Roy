@@ -21,17 +21,11 @@ import javax.swing.JMenuItem;
 
 public class GameGUI {
 
-<<<<<<< HEAD
 	JFrame frmCthulhuDice;
 	private JTextField messageToSend;
 	private JTextPane messageBoard;
 	Controller controller;
 	HTMLDocument chatLog;
-=======
-	Controller controller;
-	JFrame frame;
-	
->>>>>>> master
 
 	/**
 	 * Create the application.
