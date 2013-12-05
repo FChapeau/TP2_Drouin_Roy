@@ -11,6 +11,12 @@ public class Controller implements IWatcher{
 
 	IServer myRemoteObject;
 	String name;
+	
+	public Controller()
+	{
+		initializeGUI();
+	}
+	
 	private void initializeGUI()
 	{
 		EventQueue.invokeLater(new Runnable() {
@@ -65,5 +71,10 @@ public class Controller implements IWatcher{
 	public void setSanity(int _newSanity) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void Attack(int idAttacker, String nameDefender)
+	{
+		myRemoteObject.attackCultist(idAttacker, nameDefender);
 	}
 }

@@ -26,6 +26,7 @@ public class GameGUI {
 	private JTextPane messageBoard;
 	Controller controller;
 	HTMLDocument chatLog;
+	JButton attackButton;
 
 	/**
 	 * Create the application.
@@ -111,7 +112,7 @@ public class GameGUI {
 		sl_gamePanel.putConstraint(SpringLayout.EAST, playerList, 189, SpringLayout.WEST, gamePanel);
 		gamePanel.add(playerList);
 		
-		JButton attackButton = new JButton("Attack");
+		attackButton = new JButton("Attack");
 		attackButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnAttack();
@@ -139,5 +140,10 @@ public class GameGUI {
 		Calendar calendar = Calendar.getInstance();
 		String timestamp = "[" + Integer.toString(calendar.get(Calendar.HOUR)) + ":" + Integer.toString(calendar.get(Calendar.MINUTE)) + "]";
 		messageBoard.setText(messageBoard.getText() + "\n" + timestamp + " " + source + ": " + message);
+	}
+	
+	private void toggleAttackButtonState(boolean state)
+	{
+		attackButton.setEnabled(state);
 	}
 }
