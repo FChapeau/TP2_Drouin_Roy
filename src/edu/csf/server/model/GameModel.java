@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import edu.csf.common.IWatcher;
+import edu.csf.common.NameTakenException;
 import edu.csf.server.Controller;
 
 public class GameModel 
@@ -68,7 +69,7 @@ public class GameModel
 		}
 	}
 	
-	public boolean addCultist(String _name, IWatcher _watcher)
+	public int addCultist(String _name, IWatcher _watcher) throws NameTakenException
 	{		
 		boolean connected = true;
 		
@@ -76,7 +77,8 @@ public class GameModel
 		{
 			if (cultist.getName().equals(_name))
 			{
-				connected = false;
+				// TODO Throw something relevant
+				throw new NameTakenException();
 			}
 		}
 		
@@ -86,7 +88,7 @@ public class GameModel
 			cultistList.add(new Cultist(_name));
 		}
 		
-		return connected;
+		return cultistList.size() -1;
 	}
 	
 	public boolean decrementChtulhuSanity()

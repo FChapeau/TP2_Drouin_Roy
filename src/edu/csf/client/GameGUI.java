@@ -1,10 +1,12 @@
 package edu.csf.client;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
@@ -16,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Vector;
 
 import javax.swing.JMenuItem;
 
@@ -24,15 +27,18 @@ public class GameGUI {
 	JFrame frmCthulhuDice;
 	private JTextField messageToSend;
 	private JTextPane messageBoard;
-	Controller controller;
-	HTMLDocument chatLog;
-	JButton attackButton;
+	private Controller controller;
+	private HTMLDocument chatLog;
+	private JButton attackButton;
+	private JList<String> playerList;
+	private DefaultListModel<String>playerListData;
 
 	/**
 	 * Create the application.
 	 */
 	public GameGUI(Controller _controller) {
 		controller = _controller;
+		playerListData = new DefaultListModel<String>();
 		initialize();
 	}
 
@@ -66,6 +72,14 @@ public class GameGUI {
 		
 		JMenu mnGame = new JMenu("Game");
 		menuBar.add(mnGame);
+		
+		JMenuItem connectClient = new JMenuItem("Connect");
+		connectClient.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				connectClient();
+			}
+		});
+		mnGame.add(connectClient);
 		
 		JMenuItem showRules = new JMenuItem("Show the rules");
 		mnGame.add(showRules);
@@ -106,7 +120,8 @@ public class GameGUI {
 		SpringLayout sl_gamePanel = new SpringLayout();
 		gamePanel.setLayout(sl_gamePanel);
 		
-		JList playerList = new JList();
+		playerList = new JList<String>();
+		playerList.setModel(playerListData);
 		sl_gamePanel.putConstraint(SpringLayout.NORTH, playerList, 10, SpringLayout.NORTH, gamePanel);
 		sl_gamePanel.putConstraint(SpringLayout.WEST, playerList, 10, SpringLayout.WEST, gamePanel);
 		sl_gamePanel.putConstraint(SpringLayout.EAST, playerList, 189, SpringLayout.WEST, gamePanel);
@@ -124,9 +139,14 @@ public class GameGUI {
 		gamePanel.add(attackButton);
 	}
 	
+	private void connectClient()
+	{
+		controller.initializeConnection("127.0.0.1");
+	}
+	
 	private void btnAttack ()
 	{
-		
+		controller.Attack((String)playerList.getSelectedValue());
 	}
 	
 	private void sendChatMessage()
@@ -145,5 +165,15 @@ public class GameGUI {
 	private void toggleAttackButtonState(boolean state)
 	{
 		attackButton.setEnabled(state);
+	}
+	
+	public void PlayerConnected (String nameAndLife, int playerID)
+	{
+		playerListData.add(playerID, nameAndLife);
+	}
+	
+	public String askClientForName()
+	{
+		return JOptionPane.showInputDialog("What is your name brother?");
 	}
 }

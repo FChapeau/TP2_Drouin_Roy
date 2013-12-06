@@ -2,15 +2,26 @@ package edu.csf.client;
 
 import java.awt.EventQueue;
 import java.io.IOException;
+import java.io.Serializable;
+
+import javax.swing.JOptionPane;
+
 import edu.csf.common.IServer;
 import edu.csf.common.IWatcher;
+import edu.csf.common.NameTakenException;
 import net.sf.lipermi.handler.CallHandler;
 import net.sf.lipermi.net.Client;
 
-public class Controller implements IWatcher{
+public class Controller implements IWatcher, Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1689248112899834256L;
 	IServer myRemoteObject;
 	String name;
+	GameGUI window;
+	int idClient;
 	
 	public Controller()
 	{
@@ -22,7 +33,7 @@ public class Controller implements IWatcher{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GameGUI window = new GameGUI(Controller.this);
+					window = new GameGUI(Controller.this);
 					window.frmCthulhuDice.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -31,21 +42,57 @@ public class Controller implements IWatcher{
 		});
 	}
 	
-	private void initializeConnection()
+	public void initializeConnection(String connectionString)
 	{
 		CallHandler callHandler = new CallHandler();
+		String[] splitConnectionString = connectionString.split(":");
 		try
 		{
-			Client client = new Client("10.200.33.112", 12345, callHandler);
-			myRemoteObject = (IServer) client.getGlobal(IServer.class);
-			
-			boolean connected = false;
-			while (connected == false)
+			if (splitConnectionString[0].matches("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}"))
 			{
-				//prompt an input box to select name
-				connected = myRemoteObject.connect(name, this);
+				if (splitConnectionString.length == 2)
+				{
+					int port = Integer.parseInt(splitConnectionString[2]);
+					
+					if (0 < port && port < 65535)
+					{
+						// TODO Connection logic with specified port
+						Client client = new Client(splitConnectionString[0], port, callHandler);
+						myRemoteObject = (IServer) client.getGlobal(IServer.class);
+					}
+					else
+					{
+						// TODO Throw something relevant
+						throw new ArrayIndexOutOfBoundsException();
+					}
+				}
+				else if (splitConnectionString.length == 1)
+				{
+					Client client = new Client(splitConnectionString[0], 12345, callHandler);
+					myRemoteObject = (IServer) client.getGlobal(IServer.class);
+				}
+				else
+				{
+					// TODO Throw something relevant
+				}
 			}
 			
+			Boolean connected = true;
+			while (connected)
+			{
+				//prompt an input box to select name
+				name = window.askClientForName();
+				try
+				{
+					idClient = myRemoteObject.connect(name, this);
+					connected = false;
+				}
+				catch(NameTakenException e)
+				{
+					connected = true;
+				}
+				
+			}
 			//System.out.println(myRemoteObject.sayHello("d:^D"));
 		}
 		catch (IOException e)
@@ -73,8 +120,8 @@ public class Controller implements IWatcher{
 		
 	}
 	
-	public void Attack(int idAttacker, String nameDefender)
+	public void Attack(String nameDefender)
 	{
-		myRemoteObject.attackCultist(idAttacker, nameDefender);
+		myRemoteObject.attackCultist(idClient, nameDefender);
 	}
 }
