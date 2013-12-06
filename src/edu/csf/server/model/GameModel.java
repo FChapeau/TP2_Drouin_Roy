@@ -20,7 +20,7 @@ public class GameModel
 		controller = _controller;
 		cultistList = new ArrayList<Cultist>();
 		gameMechanics = new GameMechanics(this);
-		
+		watchers = new ArrayList<IWatcher>();
 	}
 	
 	public void attack(String _attackerName, String _defenderName)
