@@ -24,7 +24,9 @@ public class GameModel
 		gameMechanics = new GameMechanics(this);
 		endGame = false;
 		currentPlayer = 0;
-		
+		watchers = new ArrayList<IWatcher>();
+		endGame = false;
+		currentPlayer = 0;
 	}
 	
 
@@ -32,7 +34,6 @@ public class GameModel
 	{
 		return endGame;
 	}
-	
 	public void attack(String _attacker, String _defenderName)
 	{
 		Cultist attacker = getCultistFromName(_attacker);
@@ -180,7 +181,6 @@ public class GameModel
 		
 		return winner;
 	}
-	
 	private void notifyOfPlayerChange(String _nextPlayer)
 	{
 		for (IWatcher w : watchers)

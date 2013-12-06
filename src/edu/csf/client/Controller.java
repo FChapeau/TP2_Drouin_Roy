@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.io.IOException;
 import java.io.Serializable;
 
+import net.sf.lipermi.exception.LipeRMIException;
 import net.sf.lipermi.handler.CallHandler;
 import net.sf.lipermi.net.Client;
 import edu.csf.common.IServer;
@@ -50,9 +51,9 @@ public class Controller implements IWatcher, Serializable{
 					
 					if (0 < port && port < 65535)
 					{
-						// TODO Connection logic with specified port
 						Client client = new Client(splitConnectionString[0], port, callHandler);
 						myRemoteObject = (IServer) client.getGlobal(IServer.class);
+						callHandler.registerGlobal(IWatcher.class, this);
 					}
 					else
 					{
@@ -64,6 +65,7 @@ public class Controller implements IWatcher, Serializable{
 				{
 					Client client = new Client(splitConnectionString[0], 12345, callHandler);
 					myRemoteObject = (IServer) client.getGlobal(IServer.class);
+					callHandler.registerGlobal(IWatcher.class, this);
 				}
 				else
 				{
@@ -77,10 +79,9 @@ public class Controller implements IWatcher, Serializable{
 				//prompt an input box to select name
 				name = window.askClientForName();
 				connected = myRemoteObject.connect(name, this);
-				
 			}
 		}
-		catch (IOException e)
+		catch (IOException | LipeRMIException e)
 		{
 			e.printStackTrace();
 		}
@@ -90,7 +91,7 @@ public class Controller implements IWatcher, Serializable{
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return null;
+		return name;
 	}
 
 	@Override
@@ -107,12 +108,13 @@ public class Controller implements IWatcher, Serializable{
 	
 	public void Attack(String nameDefender)
 	{
-		myRemoteObject.attackCultist(idClient, nameDefender);
+		//myRemoteObject.attackCultist(idClient, nameDefender);
 	}
 
 	@Override
 	public int askHorus() {
 		// TODO Auto-generated method stub
+		 
 		return 0;
 	}
 
@@ -126,5 +128,11 @@ public class Controller implements IWatcher, Serializable{
 	public void showNextPlayer(String _nextPlayer) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public String chooseTarget() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
