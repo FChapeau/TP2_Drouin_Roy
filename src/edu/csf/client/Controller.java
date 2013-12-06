@@ -14,9 +14,6 @@ import net.sf.lipermi.net.Client;
 
 public class Controller implements IWatcher, Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1689248112899834256L;
 	IServer myRemoteObject;
 	String name;
@@ -123,5 +120,17 @@ public class Controller implements IWatcher, Serializable{
 	public void Attack(String nameDefender)
 	{
 		myRemoteObject.attackCultist(idClient, nameDefender);
+	}
+
+	@Override
+	public int askHorus() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void showNewSanity(String name, int sanity) {
+		// TODO Auto-generated method stub
+		
 	}
 }

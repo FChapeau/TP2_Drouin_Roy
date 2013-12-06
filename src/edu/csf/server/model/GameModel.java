@@ -1,7 +1,6 @@
 package edu.csf.server.model;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import edu.csf.common.IWatcher;
 import edu.csf.common.NameTakenException;
@@ -62,6 +61,7 @@ public class GameModel
 	{
 		for (IWatcher w : watchers)
 		{
+			w.showNewSanity(_cultist.getName(), _cultist.getSanity());
 			if (w.getName().equals(_cultist.getName()))
 			{
 				w.setSanity(_cultist.getSanity());
@@ -112,8 +112,15 @@ public class GameModel
 	}
 
 	public int notifyOfHorus(Cultist _attacker) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = 0;
+		for (IWatcher w : watchers)
+		{
+			if(w.getName().equals(_attacker.getName()))
+			{
+				result = w.askHorus();
+			}
+		}
+		return result;
 	}
 
 	
