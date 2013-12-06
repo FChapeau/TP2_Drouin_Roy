@@ -152,6 +152,7 @@ public class GameModel
 		{
 			currentPlayer += 1;
 		}
+		notifyOfPlayerChange(cultistList.get(currentPlayer).getName());
 	}
 	
 	public int getCurrentPlayer()
@@ -160,32 +161,45 @@ public class GameModel
 	}
 	
 	
-	private Cultist checkEndGame()
+	public void checkEndGame()
 	{
 		int notCrazy = 0;
-		Cultist winner = null;
-		
+		String winner = null;		
 		for (Cultist c : cultistList)
 		{
 			if(c.getSanity() > 0)
 			{
 				notCrazy ++;
-				winner = c;
+				winner = c.getName();
 			}
-		}
-		
+		}		
 		if (notCrazy <= 1)
 		{
 			endGame = true;
-		}
-		
-		return winner;
+			if (notCrazy == 0)
+			{
+				notifyOfGameEnd("Chtulhu");
+			}
+			else
+			{
+				notifyOfGameEnd(winner);
+			}
+		}		
 	}
+	
 	private void notifyOfPlayerChange(String _nextPlayer)
 	{
 		for (IWatcher w : watchers)
 		{
 			w.showNextPlayer(_nextPlayer);
+		}
+	}
+	
+	private void notifyOfGameEnd(String _winner)
+	{
+		for (IWatcher w : watchers)
+		{
+			w.showWinner(_winner);
 		}
 	}
 

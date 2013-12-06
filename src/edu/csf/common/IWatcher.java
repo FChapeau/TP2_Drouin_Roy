@@ -9,5 +9,6 @@ public interface IWatcher {
 	void showNewSanity(String name, int sanity);
 	void showNextPlayer(String _nextPlayer);
 	String chooseTarget();
+	void showWinner(String _winner);
 
 }

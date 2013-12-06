@@ -55,7 +55,11 @@ public class Controller extends Server implements IServer
 			defenderName = gameModel.notifyAttackerToAttack();
 			gameModel.attack(gameModel.getCultistList().get(gameModel.getCurrentPlayer()).getName(), defenderName);
 			gameModel.attack(defenderName, gameModel.getCultistList().get(gameModel.getCurrentPlayer()).getName());
-			gameModel.nextPlayer();
+			gameModel.checkEndGame();
+			if(!gameModel.getEndGame())
+			{
+				gameModel.nextPlayer();
+			}	
 		}	
 	}
 	
