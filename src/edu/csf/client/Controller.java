@@ -4,13 +4,10 @@ import java.awt.EventQueue;
 import java.io.IOException;
 import java.io.Serializable;
 
-import javax.swing.JOptionPane;
-
-import edu.csf.common.IServer;
-import edu.csf.common.IWatcher;
-import edu.csf.common.NameTakenException;
 import net.sf.lipermi.handler.CallHandler;
 import net.sf.lipermi.net.Client;
+import edu.csf.common.IServer;
+import edu.csf.common.IWatcher;
 
 public class Controller implements IWatcher, Serializable{
 
@@ -74,23 +71,14 @@ public class Controller implements IWatcher, Serializable{
 				}
 			}
 			
-			Boolean connected = true;
-			while (connected)
+			Boolean connected = false;
+			while (!connected)
 			{
 				//prompt an input box to select name
 				name = window.askClientForName();
-				try
-				{
-					idClient = myRemoteObject.connect(name, this);
-					connected = false;
-				}
-				catch(NameTakenException e)
-				{
-					connected = true;
-				}
+				connected = myRemoteObject.connect(name, this);
 				
 			}
-			//System.out.println(myRemoteObject.sayHello("d:^D"));
 		}
 		catch (IOException e)
 		{

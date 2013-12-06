@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import edu.csf.common.IServer;
 import edu.csf.common.IWatcher;
-import edu.csf.common.NameTakenException;
 import edu.csf.server.model.GameModel;
 import net.sf.lipermi.exception.LipeRMIException;
 import net.sf.lipermi.handler.CallHandler;
@@ -41,7 +40,7 @@ public class Controller extends Server implements IServer
 	}
 
 	@Override
-	public int connect(String _name, IWatcher _controller) throws NameTakenException 
+	public boolean connect(String _name, IWatcher _controller) 
 	{
 		return gameModel.addCultist(_name, _controller);
 	} 
