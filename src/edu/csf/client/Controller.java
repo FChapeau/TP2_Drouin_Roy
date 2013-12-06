@@ -121,4 +121,10 @@ public class Controller implements IWatcher, Serializable{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void showNextPlayer(String _nextPlayer) {
+		// TODO Auto-generated method stub
+		
+	}
 }

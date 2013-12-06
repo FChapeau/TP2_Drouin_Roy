@@ -32,18 +32,32 @@ public class Controller extends Server implements IServer
 			
 		}
 	}
-	
-	@Override
-	public void attackCultist(int _idAttacker, String _nameDefender) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public boolean connect(String _name, IWatcher _controller) 
 	{
 		return gameModel.addCultist(_name, _controller);
 	} 
+	
+	public void startGame()
+	{
+		if (gameModel.getCultistList().size() >= 2)
+		{
+			gameRun();
+		}
+	}
+	
+	private void gameRun()
+	{
+		while (!gameModel.getEndGame())
+		{
+			String defenderName;
+			defenderName = gameModel.notifyAttackerToAttack();
+			gameModel.attack(gameModel.getCultistList().get(gameModel.getCurrentPlayer()).getName(), defenderName);
+			gameModel.attack(defenderName, gameModel.getCultistList().get(gameModel.getCurrentPlayer()).getName());
+			gameModel.nextPlayer();
+		}	
+	}
 	
 
 }

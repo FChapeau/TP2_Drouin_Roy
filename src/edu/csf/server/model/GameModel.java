@@ -13,6 +13,8 @@ public class GameModel
 	private final GameMechanics gameMechanics;
 	private final Controller controller;
 	private ArrayList<IWatcher> watchers;
+	private int currentPlayer;
+	private boolean endGame;
 	
 	public GameModel(Controller _controller)
 	{
@@ -20,17 +22,23 @@ public class GameModel
 		controller = _controller;
 		cultistList = new ArrayList<Cultist>();
 		gameMechanics = new GameMechanics(this);
+		endGame = false;
+		currentPlayer = 0;
 		
 	}
 	
-	public void attack(String _attackerName, String _defenderName)
+
+	public boolean getEndGame()
 	{
-		Cultist attacker = getCultistFromName(_attackerName);
+		return endGame;
+	}
+	
+	public void attack(String _attacker, String _defenderName)
+	{
+		Cultist attacker = getCultistFromName(_attacker);
 		Cultist defender = getCultistFromName(_defenderName);
 		
-		gameMechanics.rollDie(attacker, defender);
-		
-		
+		gameMechanics.rollDie(attacker, defender);	
 	}
 	
 	private Cultist getCultistFromName(String _name)
@@ -54,6 +62,20 @@ public class GameModel
 		{
 			w.showResult(_result, _throwerName);
 		}
+	}
+	
+	public String notifyAttackerToAttack()
+	{
+		String target = "";
+		for (IWatcher w : watchers)
+		{
+			if (w.getName() == cultistList.get(currentPlayer).getName())
+			{
+				target = w.chooseTarget();
+			}
+		}
+		
+		return target;
 	}
 	
 	public void notifyNewSanity(Cultist _cultist)
@@ -95,16 +117,19 @@ public class GameModel
 		return tookSanity;
 	}
 
-	public void incrementCthulhuSanity() {
+	public void incrementCthulhuSanity() 
+	{
 		chtulhuSanity += 1;
 		
 	}
 
-	public ArrayList<Cultist> getCultistList() {
+	public ArrayList<Cultist> getCultistList() 
+	{
 		return cultistList;
 	}
 
-	public int notifyOfHorus(Cultist _attacker) {
+	public int notifyOfHorus(Cultist _attacker) 
+	{
 		int result = 0;
 		for (IWatcher w : watchers)
 		{
@@ -116,6 +141,52 @@ public class GameModel
 		return result;
 	}
 
+	public void nextPlayer()
+	{
+		if (currentPlayer >= cultistList.size())
+		{
+			currentPlayer = 0;
+		}
+		else
+		{
+			currentPlayer += 1;
+		}
+	}
 	
+	public int getCurrentPlayer()
+	{
+		return currentPlayer;
+	}
+	
+	
+	private Cultist checkEndGame()
+	{
+		int notCrazy = 0;
+		Cultist winner = null;
+		
+		for (Cultist c : cultistList)
+		{
+			if(c.getSanity() > 0)
+			{
+				notCrazy ++;
+				winner = c;
+			}
+		}
+		
+		if (notCrazy <= 1)
+		{
+			endGame = true;
+		}
+		
+		return winner;
+	}
+	
+	private void notifyOfPlayerChange(String _nextPlayer)
+	{
+		for (IWatcher w : watchers)
+		{
+			w.showNextPlayer(_nextPlayer);
+		}
+	}
 
 }

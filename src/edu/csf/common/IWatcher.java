@@ -7,5 +7,7 @@ public interface IWatcher {
 	void setSanity(int _newSanity);
 	int askHorus();
 	void showNewSanity(String name, int sanity);
+	void showNextPlayer(String _nextPlayer);
+	String chooseTarget();
 
 }
