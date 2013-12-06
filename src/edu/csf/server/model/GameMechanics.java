@@ -1,7 +1,6 @@
 package edu.csf.server.model;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class GameMechanics 
 {
@@ -37,7 +36,7 @@ public class GameMechanics
 	
 	private void interpretResult(int _result, Cultist _attacker, Cultist _defender)
 	{
-		String dieFace = "";
+		
 		if (isBetween(_result, 1, 5))
 		{
 			gameModel.notifyDiceResult(YELLOW_SIGN, _attacker.getName());

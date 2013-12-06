@@ -2,6 +2,7 @@ package edu.csf.client;
 
 import java.awt.EventQueue;
 import java.io.IOException;
+
 import edu.csf.common.IServer;
 import edu.csf.common.IWatcher;
 import net.sf.lipermi.handler.CallHandler;
@@ -63,6 +64,18 @@ public class Controller implements IWatcher{
 
 	@Override
 	public void setSanity(int _newSanity) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int askHorus() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void showNewSanity(String name, int sanity) {
 		// TODO Auto-generated method stub
 		
 	}
