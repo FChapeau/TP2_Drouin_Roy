@@ -11,14 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SpringLayout;
-import javax.swing.text.Document;
-import javax.swing.text.html.HTMLDocument;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Vector;
 
 import javax.swing.JMenuItem;
 
@@ -28,7 +23,6 @@ public class GameGUI {
 	private JTextField messageToSend;
 	private JTextPane messageBoard;
 	private Controller controller;
-	private HTMLDocument chatLog;
 	private JButton attackButton;
 	private JList<String> playerList;
 	private DefaultListModel<String>playerListData;
@@ -40,6 +34,7 @@ public class GameGUI {
 		controller = _controller;
 		playerListData = new DefaultListModel<String>();
 		initialize();
+		toggleAttackButtonState(false);
 	}
 
 	/**
@@ -142,6 +137,7 @@ public class GameGUI {
 	private void connectClient()
 	{
 		controller.initializeConnection("127.0.0.1");
+		toggleAttackButtonState(true);
 	}
 	
 	private void btnAttack ()
@@ -156,7 +152,6 @@ public class GameGUI {
 	
 	private void printChatMessage(String source, String message)
 	{
-		//TODO Formatter timestamp
 		Calendar calendar = Calendar.getInstance();
 		String timestamp = "[" + Integer.toString(calendar.get(Calendar.HOUR)) + ":" + Integer.toString(calendar.get(Calendar.MINUTE)) + "]";
 		messageBoard.setText(messageBoard.getText() + "\n" + timestamp + " " + source + ": " + message);
@@ -167,13 +162,33 @@ public class GameGUI {
 		attackButton.setEnabled(state);
 	}
 	
-	public void PlayerConnected (String nameAndLife, int playerID)
+	public void PlayerConnected (String name, int life, int playerID)
 	{
-		playerListData.add(playerID, nameAndLife);
+		playerListData.add(playerID, formatNameAndLife(name, life));
 	}
 	
 	public String askClientForName()
 	{
 		return JOptionPane.showInputDialog("What is your name brother?");
+	}
+	
+	public void changePlayerShownHealth (String name, int life)
+	{
+		int wantedIndex = 0;
+		
+		for (int i = 0; i < playerListData.getSize(); i++)
+		{
+			if (playerListData.get(i).equals(name))
+			{
+				wantedIndex = i;
+			}
+		}
+		String nameToDisplay = formatNameAndLife(name, life);
+		playerListData.setElementAt(nameToDisplay, wantedIndex);
+	}
+	
+	private String formatNameAndLife(String name, int life)
+	{
+		return name + " (" + Integer.toString(life) + ")";
 	}
 }
