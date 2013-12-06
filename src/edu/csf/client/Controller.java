@@ -91,7 +91,7 @@ public class Controller implements IWatcher, Serializable{
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return null;
+		return name;
 	}
 
 	@Override
@@ -108,12 +108,13 @@ public class Controller implements IWatcher, Serializable{
 	
 	public void Attack(String nameDefender)
 	{
-		myRemoteObject.attackCultist(idClient, nameDefender);
+		//myRemoteObject.attackCultist(idClient, nameDefender);
 	}
 
 	@Override
 	public int askHorus() {
 		// TODO Auto-generated method stub
+		 
 		return 0;
 	}
 
@@ -121,5 +122,17 @@ public class Controller implements IWatcher, Serializable{
 	public void showNewSanity(String name, int sanity) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void showNextPlayer(String _nextPlayer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String chooseTarget() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
