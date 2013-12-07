@@ -43,29 +43,28 @@ public class Controller extends Server implements IServer
 	{
 		if (gameModel.getCultistList().size() >= 2)
 		{
-			gameRun();
+			//gameRun();
 		}
 	}
-	
-	private void gameRun()
+
+	@Override
+	public void attack(String _defenderName) 
 	{
-		while (!gameModel.getEndGame())
+		if (!gameModel.getEndGame())
 		{
-			String defenderName;
-			defenderName = gameModel.notifyAttackerToAttack();
-			gameModel.attack(gameModel.getCultistList().get(gameModel.getCurrentPlayer()).getName(), defenderName);
-			gameModel.attack(defenderName, gameModel.getCultistList().get(gameModel.getCurrentPlayer()).getName());
+			gameModel.attack(gameModel.getCultistList().get(gameModel.getCurrentPlayer()).getName(), _defenderName);
+			gameModel.attack(_defenderName, gameModel.getCultistList().get(gameModel.getCurrentPlayer()).getName());
 			gameModel.checkEndGame();
 			if(!gameModel.getEndGame())
 			{
 				gameModel.nextPlayer();
 			}	
-		}	
+		}
 	}
 
 	@Override
-	public void attack(String _defenderName) {
-		// TODO Auto-generated method stub
+	public void receiveMessage(String _sender, String _message) {
+		gameModel.broadcastMessage(_sender, _message);
 		
 	}
 	

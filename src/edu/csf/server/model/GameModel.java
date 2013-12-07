@@ -204,4 +204,12 @@ public class GameModel
 		}
 	}
 
+
+	public void broadcastMessage(String _sender, String _message) {
+		for (IWatcher w : watchers)
+		{
+			w.printMessage(_sender, _message);
+		}
+	}
+
 }

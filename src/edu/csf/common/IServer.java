@@ -7,5 +7,5 @@ import edu.csf.server.model.Cultist;
 public interface IServer {
 	public boolean connect(String _name, IWatcher _controller);
 	public void attack(String _defenderName);
-
+	public void receiveMessage(String _sender, String _message);
 }
