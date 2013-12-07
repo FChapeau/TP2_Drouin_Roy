@@ -76,7 +76,6 @@ public class Controller implements IWatcher, Serializable{
 			Boolean connected = false;
 			while (!connected)
 			{
-				//prompt an input box to select name
 				name = window.askClientForName();
 				connected = myRemoteObject.connect(name, this);
 			}
@@ -121,7 +120,7 @@ public class Controller implements IWatcher, Serializable{
 	@Override
 	public void showNewSanity(String name, int sanity) {
 		// TODO Auto-generated method stub
-		
+		window.changePlayerShownHealth(name, sanity);
 	}
 
 	@Override
