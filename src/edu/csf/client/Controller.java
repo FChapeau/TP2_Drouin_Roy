@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.io.IOException;
 import java.io.Serializable;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import net.sf.lipermi.exception.LipeRMIException;
 import net.sf.lipermi.handler.CallHandler;
 import net.sf.lipermi.net.Client;
@@ -112,7 +113,7 @@ public class Controller implements IWatcher, Serializable{
 	@Override
 	public int askHorus() {
 		// TODO Auto-generated method stub
-		 
+		
 		return 0;
 	}
 
@@ -128,9 +129,10 @@ public class Controller implements IWatcher, Serializable{
 	}
 
 	@Override
+	@Deprecated
 	public String chooseTarget() {
 		// TODO Auto-generated method stub
-		return null;
+		throw new NotImplementedException();
 	}
 
 	@Override

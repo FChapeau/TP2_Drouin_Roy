@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SpringLayout;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.Calendar;
@@ -190,5 +191,17 @@ public class GameGUI {
 	private String formatNameAndLife(String name, int life)
 	{
 		return name + " (" + Integer.toString(life) + ")";
+	}
+	
+	public String askClientForHorus()
+	{
+		String[] data = {"Cthlhu", "Elder Sign", "Tentacle", "Yellow Sign"};
+		return (String) JOptionPane.showInputDialog(null, 
+				"The dice came up on the Eye of Horus! Choose what symbol to apply.", 
+				"Eye of Horus", 
+				JOptionPane.QUESTION_MESSAGE, 
+				null, 
+				data, 
+				data[0]);
 	}
 }
