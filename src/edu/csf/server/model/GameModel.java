@@ -66,18 +66,15 @@ public class GameModel
 		}
 	}
 	
-	public String notifyAttackerToAttack()
+	public void notifyAttackerToAttack()
 	{
-		String target = "";
 		for (IWatcher w : watchers)
 		{
 			if (w.getName() == cultistList.get(currentPlayer).getName())
 			{
-				target = w.chooseTarget();
+				w.yourTurn();
 			}
 		}
-		
-		return target;
 	}
 	
 	public void notifyNewSanity(Cultist _cultist)

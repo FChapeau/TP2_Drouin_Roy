@@ -8,7 +8,7 @@ public interface IWatcher {
 	int askHorus();
 	void showNewSanity(String name, int sanity);
 	void showNextPlayer(String _nextPlayer);
-	String chooseTarget();
 	void showWinner(String _winner);
 	void printMessage(String _sender, String _message);
+	void yourTurn();
 }
