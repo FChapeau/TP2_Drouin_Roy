@@ -62,6 +62,12 @@ public class Controller extends Server implements IServer
 			}	
 		}	
 	}
+
+	@Override
+	public void attack(String _defenderName) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 }

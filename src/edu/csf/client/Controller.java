@@ -101,6 +101,12 @@ public class Controller implements IWatcher, Serializable{
 	@Override
 	public void setSanity(int _newSanity) {
 		window.changePlayerShownHealth(name, _newSanity);
+		
+	}
+	
+	public void Attack(String _nameDefender)
+	{
+		//myRemoteObject.attackCultist(idClient, nameDefender);
 	}
 
 	@Override
@@ -129,7 +135,6 @@ public class Controller implements IWatcher, Serializable{
 
 	@Override
 	public void showWinner(String _winner) {
-		// TODO Auto-generated method stub
 		window.printChatMessage("Server", "Game ends! The winner is: " + _winner + "!");
 	}
 }

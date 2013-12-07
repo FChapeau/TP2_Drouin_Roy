@@ -34,6 +34,7 @@ public class GameModel
 	{
 		return endGame;
 	}
+	
 	public void attack(String _attacker, String _defenderName)
 	{
 		Cultist attacker = getCultistFromName(_attacker);
