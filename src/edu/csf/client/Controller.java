@@ -113,13 +113,25 @@ public class Controller implements IWatcher, Serializable{
 	@Override
 	public int askHorus() {
 		// TODO Auto-generated method stub
+		String input = window.askClientForHorus();
+		
+		switch (input)
+		{
+		case "Cthulhu":
+			return 12;
+		case "Elder Sign":
+			return 10;
+		case "Tentacle":
+			return 6;
+		case "Yellow Sign":
+			return 1;
+		}
 		
 		return 0;
 	}
 
 	@Override
 	public void showNewSanity(String name, int sanity) {
-		// TODO Auto-generated method stub
 		window.changePlayerShownHealth(name, sanity);
 	}
 
@@ -128,12 +140,6 @@ public class Controller implements IWatcher, Serializable{
 		window.printChatMessage("Server", "It is now " + _nextPlayer + "'s turn");
 	}
 
-	@Override
-	@Deprecated
-	public String chooseTarget() {
-		// TODO Auto-generated method stub
-		throw new NotImplementedException();
-	}
 
 	@Override
 	public void showWinner(String _winner) {
