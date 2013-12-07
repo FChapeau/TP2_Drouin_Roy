@@ -105,7 +105,7 @@ public class Controller implements IWatcher, Serializable{
 		
 	}
 	
-	public void Attack(String nameDefender)
+	public void Attack(String _nameDefender)
 	{
 		//myRemoteObject.attackCultist(idClient, nameDefender);
 	}
@@ -133,5 +133,11 @@ public class Controller implements IWatcher, Serializable{
 	public String chooseTarget() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void showWinner(String _winner) {
+		// TODO Auto-generated method stub
+		
 	}
 }
