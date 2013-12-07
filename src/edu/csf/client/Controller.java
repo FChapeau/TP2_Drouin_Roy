@@ -84,30 +84,23 @@ public class Controller implements IWatcher, Serializable{
 		{
 			e.printStackTrace();
 		}
-		//System.out.println("client done");
 	}
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return name;
 	}
 
 	@Override
 	public void showResult(String _result, String _throwerName) {
-		// TODO Auto-generated method stub
-		
+		String message = new String();
+		message = _throwerName + " rolled " + _result + " on the dice!";
+		window.printChatMessage("Server", message);
 	}
 
 	@Override
 	public void setSanity(int _newSanity) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	public void Attack(String nameDefender)
-	{
-		//myRemoteObject.attackCultist(idClient, nameDefender);
+		window.changePlayerShownHealth(name, _newSanity);
 	}
 
 	@Override
@@ -125,13 +118,18 @@ public class Controller implements IWatcher, Serializable{
 
 	@Override
 	public void showNextPlayer(String _nextPlayer) {
-		// TODO Auto-generated method stub
-		
+		window.printChatMessage("Server", "It is now " + _nextPlayer + "'s turn");
 	}
 
 	@Override
 	public String chooseTarget() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void showWinner(String _winner) {
+		// TODO Auto-generated method stub
+		window.printChatMessage("Server", "Game ends! The winner is: " + _winner + "!");
 	}
 }

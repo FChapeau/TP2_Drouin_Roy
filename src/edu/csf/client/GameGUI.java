@@ -142,7 +142,7 @@ public class GameGUI {
 	
 	private void btnAttack ()
 	{
-		controller.Attack((String)playerList.getSelectedValue());
+		
 	}
 	
 	private void sendChatMessage()
@@ -150,7 +150,7 @@ public class GameGUI {
 		printChatMessage("Me", messageToSend.getText());
 	}
 	
-	private void printChatMessage(String source, String message)
+	public void printChatMessage(String source, String message)
 	{
 		Calendar calendar = Calendar.getInstance();
 		String timestamp = "[" + Integer.toString(calendar.get(Calendar.HOUR)) + ":" + Integer.toString(calendar.get(Calendar.MINUTE)) + "]";
