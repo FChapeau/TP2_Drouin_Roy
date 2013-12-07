@@ -106,7 +106,7 @@ public class Controller implements IWatcher, Serializable{
 	
 	public void Attack(String _nameDefender)
 	{
-		//myRemoteObject.attackCultist(idClient, nameDefender);
+		myRemoteObject.attack(_nameDefender);
 	}
 
 	@Override
@@ -136,5 +136,11 @@ public class Controller implements IWatcher, Serializable{
 	@Override
 	public void showWinner(String _winner) {
 		window.printChatMessage("Server", "Game ends! The winner is: " + _winner + "!");
+	}
+
+	@Override
+	public void printMessage(String _sender, String _message) {
+		// TODO Auto-generated method stub
+		window.printChatMessage(_sender, _message);
 	}
 }

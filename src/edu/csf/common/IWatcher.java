@@ -10,5 +10,5 @@ public interface IWatcher {
 	void showNextPlayer(String _nextPlayer);
 	String chooseTarget();
 	void showWinner(String _winner);
-
+	void printMessage(String _sender, String _message);
 }
