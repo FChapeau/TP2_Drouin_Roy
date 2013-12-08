@@ -185,7 +185,7 @@ public class GameModel
 		}		
 	}
 	
-	private void notifyOfPlayerChange(String _nextPlayer)
+	public void notifyOfPlayerChange(String _nextPlayer)
 	{
 		for (IWatcher w : watchers)
 		{
@@ -202,11 +202,40 @@ public class GameModel
 	}
 
 
-	public void broadcastMessage(String _sender, String _message) {
-		for (IWatcher w : watchers)
-		{
-			w.printMessage(_sender, _message);
-		}
+	public void broadcastMessage(String _sender, String _message) 
+	{
+		messageThread mess = new messageThread(_sender, _message); 
+		mess.start();
 	}
+	
+	private class messageThread extends Thread
+	{
+		String sender;
+		String message;
+		
+		public messageThread(String _sender, String _message)
+		{
+			sender = _sender;
+			message = _message;
+		}
+
+		@Override
+		public void run() 
+		{
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			for (IWatcher w : watchers)
+			{
+				w.printMessage(sender, message);
+			}
+		}
+		
+	}
+	
 
 }
+
+

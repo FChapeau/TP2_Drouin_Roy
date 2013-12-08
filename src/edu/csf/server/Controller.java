@@ -1,6 +1,8 @@
 package edu.csf.server;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import edu.csf.common.IServer;
 import edu.csf.common.IWatcher;
@@ -31,6 +33,9 @@ public class Controller extends Server implements IServer
 		{
 			
 		}
+		
+		waitForStart wait = new waitForStart();
+		wait.run();
 	}
 
 	@Override
@@ -39,12 +44,9 @@ public class Controller extends Server implements IServer
 		return gameModel.addCultist(_name, _controller);
 	} 
 	
-	public void startGame()
+	private void startGame()
 	{
-		if (gameModel.getCultistList().size() >= 2)
-		{
-			//gameRun();
-		}
+			gameModel.notifyOfPlayerChange(gameModel.getCultistList().get(gameModel.getCurrentPlayer()).getName());
 	}
 
 	@Override
@@ -68,5 +70,31 @@ public class Controller extends Server implements IServer
 		
 	}
 	
+	private class waitForStart extends Thread
+	{
+		String start = "";
+		@Override
+		public void run() 
+		{
+			while (!start.equals("start") && gameModel.getCultistList().size() < 2)
+			{
+				System.out.println("Enter «start» to start : ");
+				 
+				try{
+				    BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+				    String start = bufferRead.readLine();
+				}
+				catch(IOException e)
+				{
+					e.printStackTrace();
+				}
+
+			}
+			
+			startGame();
+			
+		}
+		
+	}
 
 }

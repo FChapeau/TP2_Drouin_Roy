@@ -158,7 +158,26 @@ public class Controller implements IWatcher, Serializable{
 	}
 	
 	public void sendChatMessage(String message)
+	{	
+		Thread mess = new messageThread(message);
+		mess.start();
+	}
+	
+	
+	private class messageThread extends Thread
 	{
-		myRemoteObject.receiveMessage(name, message);
+		String message;
+		
+		public messageThread(String _message)
+		{
+			message = _message;
+		}
+
+		@Override
+		public void run() 
+		{
+			myRemoteObject.receiveMessage(name, message);
+		}
+		
 	}
 }
