@@ -8,6 +8,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SpringLayout;
@@ -17,16 +18,19 @@ import java.awt.event.ActionEvent;
 import java.util.Calendar;
 
 import javax.swing.JMenuItem;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 public class GameGUI {
 
 	JFrame frmCthulhuDice;
 	private JTextField messageToSend;
-	private JTextPane messageBoard;
+	private JTextArea messageBoard;
 	private Controller controller;
 	private JButton attackButton;
 	private JList<String> playerList;
 	private DefaultListModel<String>playerListData;
+	private JMenuItem connectClient;
 
 	/**
 	 * Create the application.
@@ -35,7 +39,7 @@ public class GameGUI {
 		controller = _controller;
 		playerListData = new DefaultListModel<String>();
 		initialize();
-		toggleAttackButtonState(false);
+		setAttackButtonAvailabileState(false);
 	}
 
 	/**
@@ -69,7 +73,7 @@ public class GameGUI {
 		JMenu mnGame = new JMenu("Game");
 		menuBar.add(mnGame);
 		
-		JMenuItem connectClient = new JMenuItem("Connect");
+		connectClient = new JMenuItem("Connect");
 		connectClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				connectClient();
@@ -85,17 +89,8 @@ public class GameGUI {
 		SpringLayout sl_chatPanel = new SpringLayout();
 		chatPanel.setLayout(sl_chatPanel);
 		
-		messageBoard = new JTextPane();
-		messageBoard.setText("Welcome to Cthulhu Dice!");
-		messageBoard.setEditable(false);
-		sl_chatPanel.putConstraint(SpringLayout.NORTH, messageBoard, 10, SpringLayout.NORTH, chatPanel);
-		sl_chatPanel.putConstraint(SpringLayout.WEST, messageBoard, 10, SpringLayout.WEST, chatPanel);
-		sl_chatPanel.putConstraint(SpringLayout.EAST, messageBoard, 363, SpringLayout.WEST, chatPanel);
-		chatPanel.add(messageBoard);
-		
 		messageToSend = new JTextField();
 		sl_chatPanel.putConstraint(SpringLayout.WEST, messageToSend, 10, SpringLayout.WEST, chatPanel);
-		sl_chatPanel.putConstraint(SpringLayout.SOUTH, messageBoard, -6, SpringLayout.NORTH, messageToSend);
 		sl_chatPanel.putConstraint(SpringLayout.SOUTH, messageToSend, -10, SpringLayout.SOUTH, chatPanel);
 		chatPanel.add(messageToSend);
 		messageToSend.setColumns(10);
@@ -105,12 +100,29 @@ public class GameGUI {
 		sl_chatPanel.putConstraint(SpringLayout.EAST, messageToSend, -6, SpringLayout.WEST, sendButton);
 		sl_chatPanel.putConstraint(SpringLayout.SOUTH, sendButton, -10, SpringLayout.SOUTH, chatPanel);
 		chatPanel.add(sendButton);
+		
+		messageBoard = new JTextArea();
+		sl_chatPanel.putConstraint(SpringLayout.NORTH, messageBoard, 60, SpringLayout.NORTH, chatPanel);
+		sl_chatPanel.putConstraint(SpringLayout.WEST, messageBoard, 10, SpringLayout.WEST, chatPanel);
+		sl_chatPanel.putConstraint(SpringLayout.EAST, messageBoard, 224, SpringLayout.WEST, chatPanel);
+		messageBoard.setLineWrap(true);
+		messageBoard.setText("Welcome to Cthulhu Dice!");
+		messageBoard.setEditable(false);
 		sendButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				sendChatMessage();
 			}
 		});
+		
+		JScrollPane scrollPane = new JScrollPane(messageBoard);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		sl_chatPanel.putConstraint(SpringLayout.NORTH, scrollPane, 10, SpringLayout.NORTH, chatPanel);
+		sl_chatPanel.putConstraint(SpringLayout.WEST, scrollPane, 10, SpringLayout.WEST, chatPanel);
+		sl_chatPanel.putConstraint(SpringLayout.SOUTH, scrollPane, -6, SpringLayout.NORTH, sendButton);
+		sl_chatPanel.putConstraint(SpringLayout.EAST, scrollPane, 0, SpringLayout.EAST, sendButton);
+		chatPanel.add(scrollPane);
+		
 		
 		frmCthulhuDice.getContentPane().add(gamePanel);
 		SpringLayout sl_gamePanel = new SpringLayout();
@@ -138,7 +150,6 @@ public class GameGUI {
 	private void connectClient()
 	{
 		controller.initializeConnection("127.0.0.1");
-		toggleAttackButtonState(true);
 	}
 	
 	public void addCultist(String name)
@@ -162,9 +173,10 @@ public class GameGUI {
 		Calendar calendar = Calendar.getInstance();
 		String timestamp = "[" + Integer.toString(calendar.get(Calendar.HOUR)) + ":" + Integer.toString(calendar.get(Calendar.MINUTE)) + "]";
 		messageBoard.setText(messageBoard.getText() + "\n" + timestamp + " " + source + ": " + message);
+		messageBoard.setCaretPosition(messageBoard.getDocument().getLength());
 	}
 	
-	public void toggleAttackButtonState(boolean state)
+	public void setAttackButtonAvailabileState(boolean state)
 	{
 		attackButton.setEnabled(state);
 	}
@@ -214,5 +226,13 @@ public class GameGUI {
 	public void setDisplayName(String name)
 	{
 		frmCthulhuDice.setTitle(frmCthulhuDice.getTitle() + " - " + name);
+	}
+	public JMenuItem getConnectClient() {
+		return connectClient;
+	}
+	
+	public void setConnetButtonAvailableState(boolean state)
+	{
+		connectClient.setEnabled(state);
 	}
 }
