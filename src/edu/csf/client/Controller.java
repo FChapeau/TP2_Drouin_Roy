@@ -4,8 +4,6 @@ import java.awt.EventQueue;
 import java.io.IOException;
 import java.io.Serializable;
 
-import com.sun.media.sound.InvalidFormatException;
-
 import net.sf.lipermi.exception.LipeRMIException;
 import net.sf.lipermi.handler.CallHandler;
 import net.sf.lipermi.net.Client;
