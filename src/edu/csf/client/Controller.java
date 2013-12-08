@@ -94,6 +94,7 @@ public class Controller implements IWatcher, Serializable{
 		{
 			e.printStackTrace();
 		}
+		window.setAttackButtonAvailabileState(false);
 	}
 
 	@Override
@@ -149,7 +150,7 @@ public class Controller implements IWatcher, Serializable{
 	@Override
 	public void showNextPlayer(String _nextPlayer) {
 		window.printChatMessage("Server", "It is now " + _nextPlayer + "'s turn");
-		window.toggleAttackButtonState(false);
+		window.setAttackButtonAvailabileState(false);
 	}
 
 
@@ -167,7 +168,7 @@ public class Controller implements IWatcher, Serializable{
 	@Override
 	public void yourTurn() {
 		window.printChatMessage("Server", "It's your turn! Choose a target and press \"Attack\".");
-		window.toggleAttackButtonState(true);
+		window.setAttackButtonAvailabileState(true);
 	}
 	
 	public void sendChatMessage(String message)
