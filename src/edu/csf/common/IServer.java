@@ -1,11 +1,10 @@
 package edu.csf.common;
 
-import edu.csf.client.Controller;
-import edu.csf.server.model.Cultist;
+import java.io.IOException;
 
 
 public interface IServer {
-	public boolean connect(String _name, IWatcher _controller);
+	public boolean connect(String _name, IWatcher _controller) throws IOException;
 	public void attack(String _defenderName);
 	public void receiveMessage(String _sender, String _message);
 	public String[] getCultistList();

@@ -108,7 +108,13 @@ public class Controller implements IWatcher, Serializable{
 		while (!connected)
 		{
 			name = window.askClientForName();
-			connected = myRemoteObject.connect(name, this);
+			try {
+				connected = myRemoteObject.connect(name, this);
+			} catch (IOException e) {
+				// TODO Prompt to say that the game is started
+				System.exit(0);
+			}
+			
 		}
 		
 		String[] cultistNameList = myRemoteObject.getCultistList();

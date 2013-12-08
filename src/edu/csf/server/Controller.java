@@ -17,6 +17,7 @@ public class Controller extends Server implements IServer
 {
 	CallHandler callHandler;
 	private final GameModel gameModel;
+	private boolean gameStarted;
 	
 	public Controller()
 	{
@@ -31,47 +32,40 @@ public class Controller extends Server implements IServer
 		{
 			
 		} catch (LipeRMIException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		gameStarted = false;
 		registerServerListener();
 		waitForStart wait = new waitForStart();
 		wait.run();
 	}
 
 	@Override
-	public boolean connect(String _name, IWatcher _controller) 
+	public boolean connect(String _name, IWatcher _controller) throws IOException 
 	{
+		if(gameStarted)
+		{
+			throw new IOException("The game already started");
+		}
 		return gameModel.addCultist(_name, _controller);
 	} 
 	
 	private void startGame()
 	{
-			gameModel.notifyOfPlayerChange(gameModel.getCultistList().get(gameModel.getCurrentPlayer()).getName());
+		gameStarted = true;
+		gameModel.notifyOfPlayerChange(gameModel.getCultistList().get(gameModel.getCurrentPlayer()).getName());
 	}
 
 	@Override
 	public void attack(String _defenderName) 
 	{
-		/*
-		if (!gameModel.getEndGame())
-		{
-			gameModel.attack(gameModel.getCultistList().get(gameModel.getCurrentPlayer()).getName(), _defenderName);
-			gameModel.attack(_defenderName, gameModel.getCultistList().get(gameModel.getCurrentPlayer()).getName());
-			gameModel.checkEndGame();
-			if(!gameModel.getEndGame())
-			{
-				gameModel.nextPlayer();
-			}	
-		}
-		*/
+
 		Attacker a = new Attacker(_defenderName);
 		a.start();
 	}
 
 	@Override
 	public void receiveMessage(String _sender, String _message) {
-		//gameModel.broadcastMessage(_sender, _message);
 		Messenger m = new Messenger(_sender, _message);
 		m.start();
 	}
@@ -100,7 +94,6 @@ public class Controller extends Server implements IServer
 
 	@Override
 	public String[] getCultistList() {
-		// TODO Auto-generated method stub
 		return gameModel.getCultistNameList();
 		
 	}
@@ -116,7 +109,7 @@ public class Controller extends Server implements IServer
 				 
 				try{
 				    BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
-				    String start = bufferRead.readLine();
+				    start = bufferRead.readLine();
 				}
 				catch(IOException e)
 				{
@@ -170,13 +163,6 @@ public class Controller extends Server implements IServer
 		@Override
 		public void run() 
 		{
-			/*
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			*/
 			gameModel.broadcastMessage(sender, message);
 		}
 	}
