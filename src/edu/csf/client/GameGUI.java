@@ -197,7 +197,7 @@ public class GameGUI {
 		
 		for (int i = 0; i < playerListData.getSize(); i++)
 		{
-			if (playerListData.get(i).equals(name))
+			if (playerListData.get(i).substring(0, playerListData.get(i).length()-4).equals(name))
 			{
 				wantedIndex = i;
 			}
