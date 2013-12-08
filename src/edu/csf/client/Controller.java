@@ -119,7 +119,14 @@ public class Controller implements IWatcher, Serializable{
 	
 	public void Attack(String _nameDefender)
 	{
-		myRemoteObject.attack(_nameDefender.substring(0, _nameDefender.length()-4));
+		if (_nameDefender.substring(_nameDefender.length()-2, _nameDefender.length()-2) != "0")
+		{
+			myRemoteObject.attack(_nameDefender.substring(0, _nameDefender.length()-4));
+		}
+		else
+		{
+			window.cantAttackThisPlayer();
+		}
 	}
 
 	@Override

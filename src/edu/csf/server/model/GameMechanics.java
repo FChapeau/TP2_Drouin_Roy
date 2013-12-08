@@ -7,11 +7,11 @@ public class GameMechanics
 
 	private final GameModel gameModel;
 	
-	private final String YELLOW_SIGN = "Signe Jaune";
-	private final String TENTACLE = "Tentacule";
+	private final String YELLOW_SIGN = "Yellow Sign";
+	private final String TENTACLE = "Tentacle";
 	private final String CHTULHU = "Chtulhu";
-	private final String ELDER_SIGN = "Signe des Anciens";
-	private final String HORUS_EYE = "Oeil d'Horus";
+	private final String ELDER_SIGN = "Elder Sign";
+	private final String HORUS_EYE = "Horus Eye";
 	
 	public GameMechanics(GameModel _gameModel)
 	{
