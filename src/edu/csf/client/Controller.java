@@ -9,7 +9,8 @@ import net.sf.lipermi.net.Client;
 import edu.csf.common.IServer;
 import edu.csf.common.IWatcher;
 
-public class Controller implements IWatcher, Serializable{
+public class Controller implements IWatcher, Serializable
+{
 
 	private static final long serialVersionUID = 1689248112899834256L;
 	IServer myRemoteObject;
@@ -24,12 +25,17 @@ public class Controller implements IWatcher, Serializable{
 	
 	private void initializeGUI()
 	{
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
+		EventQueue.invokeLater(new Runnable() 
+		{
+			public void run() 
+			{
+				try 
+				{
 					window = new GameGUI(Controller.this);
 					window.frmCthulhuDice.setVisible(true);
-				} catch (Exception e) {
+				} 
+				catch (Exception e) 
+				{
 					e.printStackTrace();
 				}
 			}
@@ -66,7 +72,6 @@ public class Controller implements IWatcher, Serializable{
 					}
 					else
 					{
-						// TODO Throw something relevant
 						throw new IllegalArgumentException("The port number you entered should be between 1 and 65535.");
 					}
 				}
@@ -108,9 +113,12 @@ public class Controller implements IWatcher, Serializable{
 		while (!connected)
 		{
 			name = window.askClientForName();
-			try {
+			try 
+			{
 				connected = myRemoteObject.connect(name, this);
-			} catch (IOException e) {
+			} 
+			catch (IOException e) 
+			{
 				// TODO Prompt to say that the game is started
 				System.exit(0);
 			}
@@ -131,23 +139,23 @@ public class Controller implements IWatcher, Serializable{
 	}
 	
 	@Override
-	public String getName() {
+	public String getName() 
+	{
 		return name;
 	}
 
 	@Override
-	public int showResult(String _result, String _throwerName) {
+	public void showResult(String _result, String _throwerName) 
+	{
 		String message = new String();
 		message = _throwerName + " rolled " + _result + " on the dice!";
 		window.printChatMessage("Server", message);
-		
-		return 0;
 	}
 
 	@Override
-	public void setSanity(int _newSanity) {
+	public void setSanity(int _newSanity) 
+	{
 		window.changePlayerShownHealth(_newSanity);
-		
 	}
 	
 	public void Attack(String _nameDefender)
@@ -163,50 +171,54 @@ public class Controller implements IWatcher, Serializable{
 	}
 
 	@Override
-	public int askHorus() {
-		// TODO Auto-generated method stub
+	public int askHorus() 
+	{
 		String input = window.askClientForHorus();
 		
 		switch (input)
 		{
-		case "Cthulhu":
-			return 12;
-		case "Elder Sign":
-			return 10;
-		case "Tentacle":
-			return 6;
-		case "Yellow Sign":
-			return 1;
+			case "Cthulhu":
+				return 12;
+			case "Elder Sign":
+				return 10;
+			case "Tentacle":
+				return 6;
+			case "Yellow Sign":
+				return 1;
 		}
 		
 		return 0;
 	}
 
 	@Override
-	public void showNewSanity(String name, int sanity) {
+	public void showNewSanity(String name, int sanity) 
+	{
 		window.changePlayerShownHealth(name, sanity);
 	}
 
 	@Override
-	public void showNextPlayer(String _nextPlayer) {
+	public void showNextPlayer(String _nextPlayer) 
+	{
 		window.printChatMessage("Server", "It is now " + _nextPlayer + "'s turn");
 		window.setAttackButtonAvailabileState(false);
 	}
 
 
 	@Override
-	public void showWinner(String _winner) {
+	public void showWinner(String _winner) 
+	{
 		window.printChatMessage("Server", "Game ends! The winner is: " + _winner + "!");
 	}
 
 	@Override
-	public void printMessage(String _sender, String _message) {
-		// TODO Auto-generated method stub
+	public void printMessage(String _sender, String _message) 
+	{
 		window.printChatMessage(_sender, _message);
 	}
 
 	@Override
-	public void yourTurn() {
+	public void yourTurn() 
+	{
 		window.printChatMessage("Server", "It's your turn! Choose a target and press \"Attack\".");
 		window.setAttackButtonAvailabileState(true);
 	}
@@ -217,14 +229,14 @@ public class Controller implements IWatcher, Serializable{
 	}
 	
 	@Override
-	public void addNewPlayer(String name) {
+	public void addNewPlayer(String name) 
+	{
 		window.PlayerConnected(name, 3);
-		
 	}
 
 	@Override
-	public void somoneDisconnected() throws Exception{
-		// TODO Auto-generated method stub
+	public void somoneDisconnected() throws Exception
+	{
 		window.displayErrorPopupBox("A player disconnected. The game and server will now close.");
 		System.exit(0);
 	}

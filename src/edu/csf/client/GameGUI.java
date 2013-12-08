@@ -10,7 +10,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.SpringLayout;
 
 import java.awt.event.ActionListener;
@@ -22,7 +21,8 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JLabel;
 
-public class GameGUI {
+public class GameGUI 
+{
 
 	JFrame frmCthulhuDice;
 	private JTextField messageToSend;
@@ -36,7 +36,8 @@ public class GameGUI {
 	/**
 	 * Create the application.
 	 */
-	public GameGUI(Controller _controller) {
+	public GameGUI(Controller _controller) 
+	{
 		controller = _controller;
 		playerListData = new DefaultListModel<String>();
 		initialize();
@@ -46,7 +47,8 @@ public class GameGUI {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize() 
+	{
 		frmCthulhuDice = new JFrame();
 		frmCthulhuDice.setResizable(false);
 		frmCthulhuDice.setTitle("Cthulhu Dice");
@@ -75,8 +77,10 @@ public class GameGUI {
 		menuBar.add(mnGame);
 		
 		connectClient = new JMenuItem("Connect");
-		connectClient.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		connectClient.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
 				connectClient();
 			}
 		});
@@ -109,9 +113,11 @@ public class GameGUI {
 		messageBoard.setLineWrap(true);
 		messageBoard.setText("Welcome to Cthulhu Dice!");
 		messageBoard.setEditable(false);
-		sendButton.addActionListener(new ActionListener(){
+		sendButton.addActionListener(new ActionListener()
+		{
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) 
+			{
 				sendChatMessage();
 			}
 		});
@@ -137,8 +143,10 @@ public class GameGUI {
 		
 		attackButton = new JButton("Attack");
 		sl_gamePanel.putConstraint(SpringLayout.SOUTH, playerList, -15, SpringLayout.NORTH, attackButton);
-		attackButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		attackButton.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
 				btnAttack();
 			}
 		});
@@ -156,7 +164,6 @@ public class GameGUI {
 	private void connectClient()
 	{
 		String connectionString = new String();
-		
 		connectionString = JOptionPane.showInputDialog(frmCthulhuDice, "Please enter the IP of the server. You can specify the port number. Ex: 192.168.0.109 or 192.168.0.109:12345");
 		controller.initializeConnection(connectionString);
 	}
@@ -164,7 +171,6 @@ public class GameGUI {
 	private void btnAttack ()
 	{
 		controller.Attack(playerList.getSelectedValue());
-		
 	}
 	
 	private void sendChatMessage()
@@ -253,6 +259,7 @@ public class GameGUI {
 	{
 		connectClient.setEnabled(state);
 	}
+	
 	public void cantAttackThisPlayer() {
 		// TODO Auto-generated method stub
 	}

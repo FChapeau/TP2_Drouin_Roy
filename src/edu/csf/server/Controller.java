@@ -24,16 +24,21 @@ public class Controller extends Server implements IServer
 		callHandler = new CallHandler();
 		gameModel = new GameModel(this);
 		
-		try {
+		try 
+		{
 			callHandler.registerGlobal(IServer.class, this);
 			this.bind(12345, callHandler);
 			System.out.println("Server ready");
-		} catch (IOException e)
+		} 
+		catch (IOException e)
 		{
 			
-		} catch (LipeRMIException e) {
+		} 
+		catch (LipeRMIException e) 
+		{
 			e.printStackTrace();
 		}
+		
 		gameStarted = false;
 		registerServerListener();
 		waitForStart wait = new waitForStart();
@@ -59,13 +64,13 @@ public class Controller extends Server implements IServer
 	@Override
 	public void attack(String _defenderName) 
 	{
-
 		Attacker a = new Attacker(_defenderName);
 		a.start();
 	}
 
 	@Override
-	public void receiveMessage(String _sender, String _message) {
+	public void receiveMessage(String _sender, String _message) 
+	{
 		Messenger m = new Messenger(_sender, _message);
 		m.start();
 	}
@@ -75,7 +80,8 @@ public class Controller extends Server implements IServer
 		this.addServerListener(new ServerListener());
 	}
 	
-	private class ServerListener implements IServerListener{
+	private class ServerListener implements IServerListener
+	{
 		public void clientConnected(Socket socket)
 		{
 			System.out.println("Client connected: " + socket.getInetAddress());
@@ -93,9 +99,9 @@ public class Controller extends Server implements IServer
 
 
 	@Override
-	public String[] getCultistList() {
+	public String[] getCultistList() 
+	{
 		return gameModel.getCultistNameList();
-		
 	}
 	private class waitForStart extends Thread
 	{
@@ -107,7 +113,8 @@ public class Controller extends Server implements IServer
 			{
 				System.out.println("Enter «start» to start : ");
 				 
-				try{
+				try
+				{
 				    BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
 				    start = bufferRead.readLine();
 				}

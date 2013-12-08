@@ -1,7 +1,5 @@
 package edu.csf.server.model;
 
-import java.io.IOException;
-import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
 
 import edu.csf.common.IWatcher;
@@ -13,7 +11,6 @@ public class GameModel
 	private int chtulhuSanity;
 	private ArrayList<Cultist> cultistList;
 	private final GameMechanics gameMechanics;
-	private final Controller controller;
 	private ArrayList<IWatcher> watchers;
 	private int currentPlayer;
 	private boolean endGame;
@@ -21,7 +18,6 @@ public class GameModel
 	public GameModel(Controller _controller)
 	{
 		chtulhuSanity = 0;
-		controller = _controller;
 		cultistList = new ArrayList<Cultist>();
 		gameMechanics = new GameMechanics(this);
 		endGame = false;
@@ -64,7 +60,7 @@ public class GameModel
 	{
 		for (IWatcher w : watchers)
 		{
-			int test = w.showResult(_result, _throwerName);
+			w.showResult(_result, _throwerName);
 			System.out.println("Success");
 		}
 	}
@@ -93,9 +89,7 @@ public class GameModel
 			else
 			{
 				w.showNewSanity(_cultist.getName(), _cultist.getSanity());
-			}
-			
-			
+			}		
 		}
 	}
 	
@@ -146,7 +140,6 @@ public class GameModel
 	public void incrementCthulhuSanity() 
 	{
 		chtulhuSanity += 1;
-		
 	}
 
 	public ArrayList<Cultist> getCultistList() 

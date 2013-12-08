@@ -14,10 +14,8 @@ public class Cultist
 		name = _name;
 	}
 	
-	
 	public int getSanity() 
 	{
-		
 		return sanity;
 	}
 	
@@ -40,7 +38,6 @@ public class Cultist
 	
 	public String getName() 
 	{
-		
 		return name;
 	}
 	

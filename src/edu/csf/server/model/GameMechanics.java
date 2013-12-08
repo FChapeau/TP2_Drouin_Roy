@@ -41,7 +41,6 @@ public class GameMechanics
 		{
 			gameModel.notifyDiceResult(YELLOW_SIGN, _attacker.getName());
 			doYellowSign(_defender);
-			
 		}
 		else if (isBetween(_result, 6, 9))
 		{
@@ -72,7 +71,6 @@ public class GameMechanics
 			gameModel.incrementCthulhuSanity();
 			gameModel.notifyNewSanity(_defender);
 		}
-		
 	}
 	
 	private void doTentacle(Cultist _attacker, Cultist _defender)
