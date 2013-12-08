@@ -79,6 +79,16 @@ public class Controller implements IWatcher, Serializable{
 				name = window.askClientForName();
 				connected = myRemoteObject.connect(name, this);
 			}
+			
+			String[] cultistNameList = myRemoteObject.getCultistList();
+			for (String s : cultistNameList)
+			{
+				if (!s.equals(name))
+				{
+					window.PlayerConnected(s, 3);
+				}
+			}
+			window.setDisplayName(name);
 		}
 		catch (IOException | LipeRMIException e)
 		{
@@ -160,5 +170,10 @@ public class Controller implements IWatcher, Serializable{
 	public void sendChatMessage(String message)
 	{
 		myRemoteObject.receiveMessage(name, message);
+	}
+
+	@Override
+	public void addNewPlayer(String name) {
+		window.PlayerConnected(name, 3);
 	}
 }

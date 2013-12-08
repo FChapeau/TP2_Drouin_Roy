@@ -11,4 +11,5 @@ public interface IWatcher {
 	void showWinner(String _winner);
 	void printMessage(String _sender, String _message);
 	void yourTurn();
+	void addNewPlayer(String name);
 }

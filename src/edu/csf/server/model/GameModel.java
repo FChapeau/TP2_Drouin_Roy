@@ -99,6 +99,7 @@ public class GameModel
 			}
 		}
 		
+		notifyOfCultistAdded(_name);
 		watchers.add(_watcher);
 		cultistList.add(new Cultist(_name));
 		
@@ -207,6 +208,26 @@ public class GameModel
 		{
 			w.printMessage(_sender, _message);
 		}
+	}
+	
+	private void notifyOfCultistAdded(String _name)
+	{
+		for (IWatcher w : watchers)
+		{
+			w.addNewPlayer(_name);
+		}
+	}
+	
+	public String[] getCultistNameList()
+	{
+		String[] output = new String[cultistList.size()];
+		
+		for (int i = 0; i < cultistList.size(); i++)
+		{
+			output[i] = cultistList.get(i).getName();
+		}
+		
+		return output;
 	}
 
 }

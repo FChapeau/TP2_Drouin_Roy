@@ -1,12 +1,14 @@
 package edu.csf.server;
 
 import java.io.IOException;
+import java.net.Socket;
 
 import edu.csf.common.IServer;
 import edu.csf.common.IWatcher;
 import edu.csf.server.model.GameModel;
 import net.sf.lipermi.exception.LipeRMIException;
 import net.sf.lipermi.handler.CallHandler;
+import net.sf.lipermi.net.IServerListener;
 import net.sf.lipermi.net.Server;
 
 public class Controller extends Server implements IServer 
@@ -68,5 +70,28 @@ public class Controller extends Server implements IServer
 		
 	}
 	
+	private void registerServerListener()
+	{
+		
+	}
+	
+	private class ServerListener implements IServerListener{
+		public void clientConnected(Socket socket)
+		{
+			System.out.println("Client connected: " + socket.getInetAddress());
+		}
+		
+		public void clientDisconnected(Socket socket)
+		{
+			System.out.println("Client disconnected: " + 
+					socket.getInetAddress());
+		}
+	}
+
+	@Override
+	public String[] getCultistList() {
+		// TODO Auto-generated method stub
+		return gameModel.getCultistNameList();
+	}
 
 }

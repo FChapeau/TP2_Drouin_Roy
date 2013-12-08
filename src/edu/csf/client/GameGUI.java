@@ -141,6 +141,11 @@ public class GameGUI {
 		toggleAttackButtonState(true);
 	}
 	
+	public void addCultist(String name)
+	{
+		
+	}
+	
 	private void btnAttack ()
 	{
 		controller.Attack(playerList.getSelectedValue());
@@ -165,9 +170,9 @@ public class GameGUI {
 		attackButton.setEnabled(state);
 	}
 	
-	public void PlayerConnected (String name, int life, int playerID)
+	public void PlayerConnected (String name, int life)
 	{
-		playerListData.add(playerID, formatNameAndLife(name, life));
+		playerListData.addElement(formatNameAndLife(name, life));
 	}
 	
 	public String askClientForName()
@@ -205,5 +210,10 @@ public class GameGUI {
 				null, 
 				data, 
 				data[0]);
+	}
+	
+	public void setDisplayName(String name)
+	{
+		frmCthulhuDice.setTitle(frmCthulhuDice.getTitle() + " - " + name);
 	}
 }
