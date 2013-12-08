@@ -150,7 +150,7 @@ public class GameGUI {
 	private void sendChatMessage()
 	{
 		controller.sendChatMessage(messageToSend.getText());
-		printChatMessage("Me", messageToSend.getText());
+		//printChatMessage("Me", messageToSend.getText());
 	}
 	
 	public void printChatMessage(String source, String message)
