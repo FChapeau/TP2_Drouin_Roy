@@ -25,7 +25,7 @@ public class Controller extends Server implements IServer
 		
 		try {
 			callHandler.registerGlobal(IServer.class, this);
-			this.bind(50000, callHandler);
+			this.bind(12345, callHandler);
 			System.out.println("Server ready");
 		} catch (IOException e)
 		{
