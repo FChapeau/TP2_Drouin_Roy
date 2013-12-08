@@ -143,11 +143,13 @@ public class GameGUI {
 	
 	private void btnAttack ()
 	{
+		controller.Attack(playerList.getSelectedValue());
 		
 	}
 	
 	private void sendChatMessage()
 	{
+		controller.sendChatMessage(messageToSend.getText());
 		printChatMessage("Me", messageToSend.getText());
 	}
 	
@@ -158,7 +160,7 @@ public class GameGUI {
 		messageBoard.setText(messageBoard.getText() + "\n" + timestamp + " " + source + ": " + message);
 	}
 	
-	private void toggleAttackButtonState(boolean state)
+	public void toggleAttackButtonState(boolean state)
 	{
 		attackButton.setEnabled(state);
 	}

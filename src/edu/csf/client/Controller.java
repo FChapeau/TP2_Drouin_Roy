@@ -153,7 +153,12 @@ public class Controller implements IWatcher, Serializable{
 
 	@Override
 	public void yourTurn() {
-		// TODO Auto-generated method stub
-		
+		window.printChatMessage("Server", "It's your turn! Choose a target and press \"Attack\".");
+		window.toggleAttackButtonState(true);
+	}
+	
+	public void sendChatMessage(String message)
+	{
+		myRemoteObject.receiveMessage(name, message);
 	}
 }
