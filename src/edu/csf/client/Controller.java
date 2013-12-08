@@ -103,9 +103,9 @@ public class Controller implements IWatcher, Serializable{
 
 	@Override
 	public void showResult(String _result, String _throwerName) {
-		/*String message = new String();
+		String message = new String();
 		message = _throwerName + " rolled " + _result + " on the dice!";
-		window.printChatMessage("Server", message);*/
+		window.printChatMessage("Server", message);
 	}
 
 	@Override
@@ -169,28 +169,9 @@ public class Controller implements IWatcher, Serializable{
 	
 	public void sendChatMessage(String message)
 	{	
-		Thread mess = new messageThread(message);
-		mess.start();
+		myRemoteObject.receiveMessage(name, message);
 	}
 	
-	
-	private class messageThread extends Thread
-	{
-		String message;
-		
-		public messageThread(String _message)
-		{
-			message = _message;
-		}
-
-		@Override
-		public void run() 
-		{
-			myRemoteObject.receiveMessage(name, message);
-		}
-		
-	}
-
 	@Override
 	public void addNewPlayer(String name) {
 		window.PlayerConnected(name, 3);
