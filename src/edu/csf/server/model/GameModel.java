@@ -84,11 +84,16 @@ public class GameModel
 	{
 		for (IWatcher w : watchers)
 		{
-			w.showNewSanity(_cultist.getName(), _cultist.getSanity());
 			if (w.getName().equals(_cultist.getName()))
 			{
 				w.setSanity(_cultist.getSanity());
 			}
+			else
+			{
+				w.showNewSanity(_cultist.getName(), _cultist.getSanity());
+			}
+			
+			
 		}
 	}
 	
@@ -146,7 +151,7 @@ public class GameModel
 
 	public void nextPlayer()
 	{
-		if (currentPlayer >= cultistList.size())
+		if (currentPlayer >= cultistList.size() - 1)
 		{
 			currentPlayer = 0;
 		}
