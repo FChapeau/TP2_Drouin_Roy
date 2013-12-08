@@ -62,7 +62,8 @@ public class GameModel
 	{
 		for (IWatcher w : watchers)
 		{
-			w.showResult(_result, _throwerName);
+			int test = w.showResult(_result, _throwerName);
+			System.out.println("Success");
 		}
 	}
 	
@@ -190,7 +191,15 @@ public class GameModel
 	{
 		for (IWatcher w : watchers)
 		{
-			w.showNextPlayer(_nextPlayer);
+			if (w.getName().equals(_nextPlayer))
+			{
+				w.yourTurn();
+			}
+			else
+			{
+				w.showNextPlayer(_nextPlayer);
+			}
+			
 		}
 	}
 	
