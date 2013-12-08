@@ -118,7 +118,7 @@ public class Controller implements IWatcher, Serializable{
 	
 	public void Attack(String _nameDefender)
 	{
-		myRemoteObject.attack(_nameDefender);
+		myRemoteObject.attack(_nameDefender.substring(0, _nameDefender.length()-4));
 	}
 
 	@Override
@@ -177,7 +177,7 @@ public class Controller implements IWatcher, Serializable{
 	
 	@Override
 	public void addNewPlayer(String name) {
-		// TODO Auto-generated method stub
+		window.PlayerConnected(name, 3);
 		
 	}
 }
