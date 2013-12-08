@@ -219,6 +219,7 @@ public class Controller implements IWatcher, Serializable{
 	@Override
 	public void somoneDisconnected() throws Exception{
 		// TODO Auto-generated method stub
-		
+		window.displayErrorPopupBox("A player disconnected. The game and server will now close.");
+		System.exit(0);
 	}
 }
