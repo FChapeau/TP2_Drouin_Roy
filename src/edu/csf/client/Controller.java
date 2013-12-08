@@ -4,7 +4,6 @@ import java.awt.EventQueue;
 import java.io.IOException;
 import java.io.Serializable;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import net.sf.lipermi.exception.LipeRMIException;
 import net.sf.lipermi.handler.CallHandler;
 import net.sf.lipermi.net.Client;
@@ -150,5 +149,11 @@ public class Controller implements IWatcher, Serializable{
 	public void printMessage(String _sender, String _message) {
 		// TODO Auto-generated method stub
 		window.printChatMessage(_sender, _message);
+	}
+
+	@Override
+	public void yourTurn() {
+		// TODO Auto-generated method stub
+		
 	}
 }
