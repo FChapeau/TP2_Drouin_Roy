@@ -20,6 +20,7 @@ import java.util.Calendar;
 import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.JLabel;
 
 public class GameGUI {
 
@@ -129,22 +130,27 @@ public class GameGUI {
 		gamePanel.setLayout(sl_gamePanel);
 		
 		playerList = new JList<String>();
-		playerList.setModel(playerListData);
-		sl_gamePanel.putConstraint(SpringLayout.NORTH, playerList, 10, SpringLayout.NORTH, gamePanel);
 		sl_gamePanel.putConstraint(SpringLayout.WEST, playerList, 10, SpringLayout.WEST, gamePanel);
-		sl_gamePanel.putConstraint(SpringLayout.EAST, playerList, 189, SpringLayout.WEST, gamePanel);
+		sl_gamePanel.putConstraint(SpringLayout.EAST, playerList, -6, SpringLayout.EAST, gamePanel);
+		playerList.setModel(playerListData);
 		gamePanel.add(playerList);
 		
 		attackButton = new JButton("Attack");
+		sl_gamePanel.putConstraint(SpringLayout.SOUTH, playerList, -15, SpringLayout.NORTH, attackButton);
 		attackButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnAttack();
 			}
 		});
 		sl_gamePanel.putConstraint(SpringLayout.WEST, attackButton, 10, SpringLayout.WEST, gamePanel);
-		sl_gamePanel.putConstraint(SpringLayout.SOUTH, playerList, -6, SpringLayout.NORTH, attackButton);
 		sl_gamePanel.putConstraint(SpringLayout.SOUTH, attackButton, -10, SpringLayout.SOUTH, gamePanel);
 		gamePanel.add(attackButton);
+		
+		currentLifeDisplay = new JLabel("Current life: 0");
+		sl_gamePanel.putConstraint(SpringLayout.NORTH, playerList, 6, SpringLayout.SOUTH, currentLifeDisplay);
+		sl_gamePanel.putConstraint(SpringLayout.NORTH, currentLifeDisplay, 10, SpringLayout.NORTH, gamePanel);
+		sl_gamePanel.putConstraint(SpringLayout.WEST, currentLifeDisplay, 10, SpringLayout.WEST, gamePanel);
+		gamePanel.add(currentLifeDisplay);
 	}
 	
 	private void connectClient()
@@ -230,6 +236,20 @@ public class GameGUI {
 	{
 		frmCthulhuDice.setTitle(frmCthulhuDice.getTitle() + " - " + name);
 	}
+	
+	public void changePlayerShownHealth (Integer life)
+	{
+		if (life > 0)
+		{			
+			currentLifeDisplay.setText("CurrentLife: " + life.toString());
+		}
+		else
+		{
+			currentLifeDisplay.setText("CurrentLife: MAD!!!");
+		}
+	}
+	private JLabel currentLifeDisplay;
+	
 	public JMenuItem getConnectClient() {
 		return connectClient;
 	}
