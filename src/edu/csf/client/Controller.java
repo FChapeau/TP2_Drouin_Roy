@@ -103,9 +103,9 @@ public class Controller implements IWatcher, Serializable{
 
 	@Override
 	public void showResult(String _result, String _throwerName) {
-		String message = new String();
+		/*String message = new String();
 		message = _throwerName + " rolled " + _result + " on the dice!";
-		window.printChatMessage("Server", message);
+		window.printChatMessage("Server", message);*/
 	}
 
 	@Override

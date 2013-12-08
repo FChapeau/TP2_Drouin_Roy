@@ -27,13 +27,12 @@ public class Controller extends Server implements IServer
 			callHandler.registerGlobal(IServer.class, this);
 			this.bind(12345, callHandler);
 			System.out.println("Server ready");
+		} catch (IOException e)
+		{
+			
 		} catch (LipeRMIException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
-			
 		}
 		
 		waitForStart wait = new waitForStart();
