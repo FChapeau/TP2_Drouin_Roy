@@ -12,4 +12,5 @@ public interface IWatcher {
 	void printMessage(String _sender, String _message);
 	void yourTurn();
 	void addNewPlayer(String name);
+	void somoneDisconnected() throws Exception;
 }

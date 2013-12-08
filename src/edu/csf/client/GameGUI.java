@@ -235,4 +235,9 @@ public class GameGUI {
 	{
 		connectClient.setEnabled(state);
 	}
+
+	public void cantAttackThisPlayer() {
+		// TODO Auto-generated method stub
+		
+	}
 }

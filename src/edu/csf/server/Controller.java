@@ -34,7 +34,7 @@ public class Controller extends Server implements IServer
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		registerServerListener();
 		waitForStart wait = new waitForStart();
 		wait.run();
 	}
@@ -78,7 +78,7 @@ public class Controller extends Server implements IServer
 	
 	private void registerServerListener()
 	{
-		
+		this.addServerListener(new ServerListener());
 	}
 	
 	private class ServerListener implements IServerListener{
@@ -91,8 +91,12 @@ public class Controller extends Server implements IServer
 		{
 			System.out.println("Client disconnected: " + 
 					socket.getInetAddress());
+			gameModel.notifyToClose();
+			
 		}
 	}
+	
+
 
 	@Override
 	public String[] getCultistList() {

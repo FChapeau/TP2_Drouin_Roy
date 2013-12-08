@@ -1,5 +1,7 @@
 package edu.csf.server.model;
 
+import java.io.IOException;
+import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
 
 import edu.csf.common.IWatcher;
@@ -95,6 +97,22 @@ public class GameModel
 			
 			
 		}
+	}
+	
+	public void notifyToClose()
+	{
+		for (IWatcher w : watchers)
+		{
+			try
+			{
+				w.somoneDisconnected();
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+		System.exit(0);
 	}
 	
 	public boolean addCultist(String _name, IWatcher _watcher)

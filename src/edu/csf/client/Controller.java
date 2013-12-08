@@ -188,4 +188,10 @@ public class Controller implements IWatcher, Serializable{
 		window.PlayerConnected(name, 3);
 		
 	}
+
+	@Override
+	public void somoneDisconnected() throws Exception{
+		// TODO Auto-generated method stub
+		
+	}
 }
