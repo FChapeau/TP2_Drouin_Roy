@@ -140,7 +140,7 @@ public class Controller implements IWatcher, Serializable{
 
 	@Override
 	public void setSanity(int _newSanity) {
-		//window.changePlayerShownHealth(name, _newSanity);
+		window.changePlayerShownHealth(_newSanity);
 		
 	}
 	

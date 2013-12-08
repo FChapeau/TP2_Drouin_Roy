@@ -161,11 +161,6 @@ public class GameGUI {
 		controller.initializeConnection(connectionString);
 	}
 	
-	public void addCultist(String name)
-	{
-		
-	}
-	
 	private void btnAttack ()
 	{
 		controller.Attack(playerList.getSelectedValue());
