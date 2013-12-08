@@ -3,9 +3,6 @@ package edu.csf.client;
 import java.awt.EventQueue;
 import java.io.IOException;
 import java.io.Serializable;
-
-import com.sun.media.sound.InvalidFormatException;
-
 import net.sf.lipermi.exception.LipeRMIException;
 import net.sf.lipermi.handler.CallHandler;
 import net.sf.lipermi.net.Client;
@@ -53,14 +50,14 @@ public class Controller implements IWatcher, Serializable{
 					
 					try 
 					{
-						port = Integer.parseInt(splitConnectionString[2]);
+						port = Integer.parseInt(splitConnectionString[1]);
 					}
 					catch (ArrayIndexOutOfBoundsException e)
 					{
 						throw new IllegalArgumentException("The port number you entered should be between 1 and 65535.");
 					}
 					
-					if (0 < port && port < 65535)
+					if (0 < port && port < 65536)
 					{
 						Client client = new Client(splitConnectionString[0], port, callHandler);
 						myRemoteObject = (IServer) client.getGlobal(IServer.class);
