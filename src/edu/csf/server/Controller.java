@@ -27,13 +27,12 @@ public class Controller extends Server implements IServer
 			callHandler.registerGlobal(IServer.class, this);
 			this.bind(12345, callHandler);
 			System.out.println("Server ready");
+		} catch (IOException e)
+		{
+			
 		} catch (LipeRMIException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
-			
 		}
 		
 		waitForStart wait = new waitForStart();
@@ -54,6 +53,7 @@ public class Controller extends Server implements IServer
 	@Override
 	public void attack(String _defenderName) 
 	{
+		/*
 		if (!gameModel.getEndGame())
 		{
 			gameModel.attack(gameModel.getCultistList().get(gameModel.getCurrentPlayer()).getName(), _defenderName);
@@ -64,12 +64,16 @@ public class Controller extends Server implements IServer
 				gameModel.nextPlayer();
 			}	
 		}
+		*/
+		Attacker a = new Attacker(_defenderName);
+		a.start();
 	}
 
 	@Override
 	public void receiveMessage(String _sender, String _message) {
-		gameModel.broadcastMessage(_sender, _message);
-		
+		//gameModel.broadcastMessage(_sender, _message);
+		Messenger m = new Messenger(_sender, _message);
+		m.start();
 	}
 	
 	private void registerServerListener()
@@ -121,6 +125,56 @@ public class Controller extends Server implements IServer
 			
 		}
 		
+	}
+	
+	private class Attacker extends Thread
+	{
+		String target;
+		
+		public Attacker(String _target)
+		{
+			target = _target;
+		}
+		
+		@Override
+		public void run ()
+		{
+			if (!gameModel.getEndGame())
+			{
+				gameModel.attack(gameModel.getCultistList().get(gameModel.getCurrentPlayer()).getName(), target);
+				gameModel.attack(target, gameModel.getCultistList().get(gameModel.getCurrentPlayer()).getName());
+				gameModel.checkEndGame();
+				if(!gameModel.getEndGame())
+				{
+					gameModel.nextPlayer();
+				}	
+			}
+		}
+	}
+	
+	private class Messenger extends Thread
+	{
+		String sender;
+		String message;
+		
+		public Messenger(String _sender, String _message)
+		{
+			sender = _sender;
+			message = _message;
+		}
+
+		@Override
+		public void run() 
+		{
+			/*
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			*/
+			gameModel.broadcastMessage(sender, message);
+		}
 	}
 
 }

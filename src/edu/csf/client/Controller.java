@@ -174,7 +174,7 @@ public class Controller implements IWatcher, Serializable{
 	{	
 		myRemoteObject.receiveMessage(name, message);
 	}
-
+	
 	@Override
 	public void addNewPlayer(String name) {
 		// TODO Auto-generated method stub
