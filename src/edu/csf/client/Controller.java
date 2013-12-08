@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 import java.io.IOException;
 import java.io.Serializable;
 
+import com.sun.media.sound.InvalidFormatException;
+
 import net.sf.lipermi.exception.LipeRMIException;
 import net.sf.lipermi.handler.CallHandler;
 import net.sf.lipermi.net.Client;
@@ -47,18 +49,28 @@ public class Controller implements IWatcher, Serializable{
 			{
 				if (splitConnectionString.length == 2)
 				{
-					int port = Integer.parseInt(splitConnectionString[2]);
+					int port;
+					
+					try 
+					{
+						port = Integer.parseInt(splitConnectionString[2]);
+					}
+					catch (ArrayIndexOutOfBoundsException e)
+					{
+						throw new IllegalArgumentException("The port number you entered should be between 1 and 65535.");
+					}
 					
 					if (0 < port && port < 65535)
 					{
 						Client client = new Client(splitConnectionString[0], port, callHandler);
 						myRemoteObject = (IServer) client.getGlobal(IServer.class);
 						callHandler.registerGlobal(IWatcher.class, this);
+						setupConnectedGUI();
 					}
 					else
 					{
 						// TODO Throw something relevant
-						throw new ArrayIndexOutOfBoundsException();
+						throw new IllegalArgumentException("The port number you entered should be between 1 and 65535.");
 					}
 				}
 				else if (splitConnectionString.length == 1)
@@ -66,37 +78,55 @@ public class Controller implements IWatcher, Serializable{
 					Client client = new Client(splitConnectionString[0], 12345, callHandler);
 					myRemoteObject = (IServer) client.getGlobal(IServer.class);
 					callHandler.registerGlobal(IWatcher.class, this);
+					setupConnectedGUI();
 				}
 				else
 				{
-					// TODO Throw something relevant
+					throw new IllegalArgumentException("IP Adress badly formatted. Ex: 192.168.0.109 or 192.168.0.109:12345");
 				}
 			}
-			
-			Boolean connected = false;
-			while (!connected)
+			else
 			{
-				name = window.askClientForName();
-				connected = myRemoteObject.connect(name, this);
+				throw new IllegalArgumentException("IP Adress badly formatted. Ex: 192.168.0.109 or 192.168.0.109:12345");
 			}
 			
-			String[] cultistNameList = myRemoteObject.getCultistList();
-			for (String s : cultistNameList)
-			{
-				if (!s.equals(name))
-				{
-					window.PlayerConnected(s, 3);
-				}
-			}
-			window.setDisplayName(name);
+		}
+		catch (NumberFormatException e)
+		{
+			window.displayErrorPopupBox("The port number you entered should be between 1 and 65535.");
 		}
 		catch (IOException | LipeRMIException e)
 		{
-			e.printStackTrace();
+			window.displayErrorPopupBox("Server handshake failed.");
 		}
-		window.setAttackButtonAvailabileState(false);
+		catch (IllegalArgumentException e)
+		{
+			window.displayErrorPopupBox(e.getMessage());
+		}
 	}
 
+	private void setupConnectedGUI()
+	{
+		Boolean connected = false;
+		while (!connected)
+		{
+			name = window.askClientForName();
+			connected = myRemoteObject.connect(name, this);
+		}
+		
+		String[] cultistNameList = myRemoteObject.getCultistList();
+		for (String s : cultistNameList)
+		{
+			if (!s.equals(name))
+			{
+				window.PlayerConnected(s, 3);
+			}
+		}
+		window.setDisplayName(name);
+		window.setAttackButtonAvailabileState(false);
+		window.setConnetButtonAvailableState(false);
+	}
+	
 	@Override
 	public String getName() {
 		return name;

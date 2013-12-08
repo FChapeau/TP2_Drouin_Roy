@@ -149,7 +149,10 @@ public class GameGUI {
 	
 	private void connectClient()
 	{
-		controller.initializeConnection("127.0.0.1");
+		String connectionString = new String();
+		
+		connectionString = JOptionPane.showInputDialog(frmCthulhuDice, "Please enter the IP of the server. You can specify the port number. Ex: 192.168.0.109 or 192.168.0.109:12345");
+		controller.initializeConnection(connectionString);
 	}
 	
 	public void addCultist(String name)
@@ -235,9 +238,13 @@ public class GameGUI {
 	{
 		connectClient.setEnabled(state);
 	}
-
 	public void cantAttackThisPlayer() {
 		// TODO Auto-generated method stub
-		
+	}
+	
+	
+	public void displayErrorPopupBox(String message)
+	{
+		JOptionPane.showMessageDialog(frmCthulhuDice, message, "Error", JOptionPane.ERROR_MESSAGE);
 	}
 }
