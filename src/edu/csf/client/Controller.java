@@ -160,7 +160,6 @@ public class Controller implements IWatcher, Serializable
 	
 	public void Attack(String _nameDefender)
 	{
-		//String lifeTotal = _nameDefender.substring(_nameDefender.length()-2, _nameDefender.length()-2);
 		char life = _nameDefender.toCharArray()[_nameDefender.length() -2];
 		
 		if (life != '0')
