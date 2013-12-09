@@ -14,6 +14,7 @@ public class GameModel
 	private ArrayList<IWatcher> watchers;
 	private int currentPlayer;
 	private boolean endGame;
+	private boolean closing;
 	
 	public GameModel(Controller _controller)
 	{
@@ -25,6 +26,7 @@ public class GameModel
 		watchers = new ArrayList<IWatcher>();
 		endGame = false;
 		currentPlayer = 0;
+		closing = false;
 	}
 	
 
@@ -93,20 +95,32 @@ public class GameModel
 		}
 	}
 	
-	public void notifyToClose()
+	public void initializeSanity()
 	{
 		for (IWatcher w : watchers)
 		{
-			try
-			{
-				w.somoneDisconnected();
-			}
-			catch (Exception e)
-			{
-				e.printStackTrace();
-			}
+			w.setSanity(3);	
 		}
-		System.exit(0);
+	}
+	
+	public void notifyToClose()
+	{
+		if (closing == false)
+		{
+			closing = true;
+			
+			for (IWatcher w : watchers)
+			{
+				try
+				{
+					w.somoneDisconnected();
+				}
+				catch (Exception e)
+				{
+				}
+			}
+			System.exit(0);
+		}
 	}
 	
 	public boolean addCultist(String _name, IWatcher _watcher)
@@ -256,6 +270,11 @@ public class GameModel
 		}
 		
 		return output;
+	}
+
+	public boolean getClosing() 
+	{
+		return closing;
 	}
 
 }

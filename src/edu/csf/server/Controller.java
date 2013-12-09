@@ -58,6 +58,7 @@ public class Controller extends Server implements IServer
 	private void startGame()
 	{
 		gameStarted = true;
+		gameModel.initializeSanity();
 		gameModel.notifyOfPlayerChange(gameModel.getCultistList().get(gameModel.getCurrentPlayer()).getName());
 	}
 
@@ -91,8 +92,10 @@ public class Controller extends Server implements IServer
 		{
 			System.out.println("Client disconnected: " + 
 					socket.getInetAddress());
-			gameModel.notifyToClose();
-			
+			if (gameModel.getClosing() == false)
+			{
+				gameModel.notifyToClose();
+			}			
 		}
 	}
 	

@@ -3,6 +3,7 @@ package edu.csf.client;
 import java.awt.EventQueue;
 import java.io.IOException;
 import java.io.Serializable;
+
 import net.sf.lipermi.exception.LipeRMIException;
 import net.sf.lipermi.handler.CallHandler;
 import net.sf.lipermi.net.Client;
@@ -239,7 +240,27 @@ public class Controller implements IWatcher, Serializable
 	@Override
 	public void somoneDisconnected() throws Exception
 	{
-		window.displayErrorPopupBox("A player disconnected. The game and server will now close.");
-		System.exit(0);
+		CloseClient close = new CloseClient();
+		close.start();
+	}
+	
+	private class CloseClient extends Thread
+	{
+		@Override
+		public void run() 
+		{
+			window.displayErrorPopupBox("A player disconnected. The game and server will now close.");
+			try 
+			{
+				Thread.sleep(100);
+			} 
+			catch (InterruptedException e) 
+			{
+
+				e.printStackTrace();
+			}
+			System.exit(0);
+		}
+		
 	}
 }
