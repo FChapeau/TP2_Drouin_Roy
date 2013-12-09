@@ -160,7 +160,10 @@ public class Controller implements IWatcher, Serializable
 	
 	public void Attack(String _nameDefender)
 	{
-		if (_nameDefender.substring(_nameDefender.length()-2, _nameDefender.length()-2) != "0")
+		//String lifeTotal = _nameDefender.substring(_nameDefender.length()-2, _nameDefender.length()-2);
+		char life = _nameDefender.toCharArray()[_nameDefender.length() -2];
+		
+		if (life != '0')
 		{
 			myRemoteObject.attack(_nameDefender.substring(0, _nameDefender.length()-4));
 		}

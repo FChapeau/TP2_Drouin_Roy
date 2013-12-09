@@ -262,6 +262,7 @@ public class GameGUI
 	
 	public void cantAttackThisPlayer() {
 		// TODO Auto-generated method stub
+		displayErrorPopupBox("You cannot attack a cultist that has gone mad.");
 	}
 	
 	
