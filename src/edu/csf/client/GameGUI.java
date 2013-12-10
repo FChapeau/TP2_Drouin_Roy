@@ -87,6 +87,11 @@ public class GameGUI
 		mnGame.add(connectClient);
 		
 		JMenuItem showRules = new JMenuItem("Show the rules");
+		showRules.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				showRules();
+			}
+		});
 		mnGame.add(showRules);
 		springLayout.putConstraint(SpringLayout.WEST, gamePanel, 389, SpringLayout.WEST, frmCthulhuDice.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, gamePanel, -10, SpringLayout.EAST, frmCthulhuDice.getContentPane());
@@ -166,6 +171,27 @@ public class GameGUI
 		String connectionString = new String();
 		connectionString = JOptionPane.showInputDialog(frmCthulhuDice, "Please enter the IP of the server. You can specify the port number. Ex: 192.168.0.109 or 192.168.0.109:12345");
 		controller.initializeConnection(connectionString);
+	}
+	
+	private void showRules()
+	{
+		String rules = "Cthulhu Dice is a game by Steve Jackson Games where you play a cultist of the eldritch god Cthulhu."
+				+ "The game is simple in essence:\n"
+				+ "-Each player starts with 3 sanity counters.\n"
+				+ "-The goal is to be the last one with sanity left.\n"
+				+ "-Each player takes turn to roll the dice.\n\n"
+				+ "-When rolling the dice, that player targets another player and rolls the dice.\n"
+				+ "-There are five sides that can turn up on the dice: Elder Sign, Cthulhu, Eye of Horus, Yellow Sign and Tentacle\n"
+				+ "-Tentacle steals one sanity counter from the target player and gives it to you.\n"
+				+ "-Yellow Sign makes target player lose one sanity and put it in a central pot.\n"
+				+ "-Elder Sign makes the player regain one sanity counter from the center pot, if there are any.\n"
+				+ "-Cthulhu makes everyone lose one sanity counter and put it in the central pot.\n"
+				+ "-The Eye of Horus lets you chose any of the aforementionned effect and apply it.\n\n"
+				+ "-It is impossible for a player to target a player who lost all sanity.\n"
+				+ "-Once the target has been struck, he counterattacks by rolling the dice against his assaillant.\n"
+				+ "-The dice is then passed to the next player until only one player is sane, in which case he won.\n"
+				+ "-If all players go mad, Cthulhu wins.";
+		JOptionPane.showMessageDialog(frmCthulhuDice, rules, "Rules", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	private void btnAttack ()
